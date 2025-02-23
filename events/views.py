@@ -4,8 +4,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-def home(request):
-   return HttpResponse('Welcome to event management')
+def home_page(request):
+    return render(request,"home.html")
 
 def admin_dashboard(request):
-    return HttpResponse('Welcome to Dashboard')
+    return render(request,"dashboard.html")

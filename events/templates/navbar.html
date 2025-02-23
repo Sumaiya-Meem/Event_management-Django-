@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    
+</head>
+<body>
+    <nav class="flex justify-around items-center bg-gray-100 shadow-md">
+   
+        <div>
+            <img src="{% static 'images/logo1.png' %}" alt="Logo" class="w-[100px] h-[80px]">
+        </div>
+
+       
+        <div class="hidden md:flex mr-16">
+            <ul class="flex space-x-8">
+                <li><a href="" class="font-semibold text-black hover:text-[#f3bf38]">Home</a></li>
+                <li><a href="#" class="font-semibold text-black hover:text-[#f3bf38]">Events</a></li>
+                <li><a href="#" class="font-semibold text-black hover:text-[#f3bf38]">About</a></li>
+                <li><a href="#" class="font-semibold text-black hover:text-[#f3bf38]">Dashboard</a></li>
+            </ul>
+        </div>
+
+        <div class="md:hidden">
+            <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+  
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+        <ul class="flex flex-col space-y-4 p-4">
+            <li><a href="#" class=" text-black hover:text-[#f3bf38] font-semibold">Home</a></li>
+            <li><a href="#" class=" text-black hover:text-[#f3bf38] font-semibold">Events</a></li>
+            <li><a href="#" class=" text-black hover:text-[#f3bf38] font-semibold">About</a></li>
+        </ul>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
