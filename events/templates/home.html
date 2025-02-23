@@ -10,9 +10,24 @@
 </head>
 <body>
 
-                  {% include "navbar.html" %}
-          <h1 class="text-center text-yellow-300">Welcome to Home Page</h1>  
+        {% include "navbar.html" %}
+        <div class="relative h-[390px] flex items-center justify-center">
+                  <div class="absolute inset-0">
+                                    <img src="{% static 'images/hero.jpeg' %}" alt="" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-black bg-opacity-70"></div> 
+                                </div>
+                        
+                                <div class="relative z-10 text-center text-white">
+                                    <h1 class="text-5xl font-bold mb-4">GLAM EVENT PLANNER</h1>
+                                    <p class="text-xl mb-8 text-[#ffbd30]">GLAM EVENT</p>
+                                    
+                                </div>
+        </div>
+
+        <div id="event-section">
+                  {% include "event.html" %}
+        </div>
           
-          {% include "footer.html" %}
+        {% include "footer.html" %}
 </body>
 </html>

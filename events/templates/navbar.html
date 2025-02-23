@@ -13,7 +13,7 @@
     
 </head>
 <body>
-    <nav class="flex justify-around items-center bg-gray-100 shadow-md">
+    <nav class="flex justify-around items-center shadow-md bg-gradient-to-r from-[#ef621b] to-[#ffac2a] ">
    
         <div>
             <img src="{% static 'images/logo1.png' %}" alt="Logo" class="w-[100px] h-[80px]">
@@ -22,10 +22,10 @@
        
         <div class="hidden md:flex mr-16">
             <ul class="flex space-x-8">
-                <li><a href="" class="font-semibold text-black hover:text-[#f3bf38]">Home</a></li>
-                <li><a href="#" class="font-semibold text-black hover:text-[#f3bf38]">Events</a></li>
-                <li><a href="#" class="font-semibold text-black hover:text-[#f3bf38]">About</a></li>
-                <li><a href="#" class="font-semibold text-black hover:text-[#f3bf38]">Dashboard</a></li>
+                <li><a href="{% url 'home_page' %}" class="font-semibold text-black hover:text-gray-900">Home</a></li>
+                <li><a href="{% url 'home_page' %}#event-section" class="font-semibold text-black hover:text-gray-900">Events</a></li>
+                <li><a href="" class="font-semibold text-black hover:text-gray-900">About</a></li>
+                <li><a href="{% url 'admin_dashboard' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
             </ul>
         </div>
 
@@ -41,9 +41,9 @@
   
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
         <ul class="flex flex-col space-y-4 p-4">
-            <li><a href="#" class=" text-black hover:text-[#f3bf38] font-semibold">Home</a></li>
-            <li><a href="#" class=" text-black hover:text-[#f3bf38] font-semibold">Events</a></li>
-            <li><a href="#" class=" text-black hover:text-[#f3bf38] font-semibold">About</a></li>
+            <li><a href="{% url 'home_page' %}" class=" text-black hover:text-gray-700 font-semibold">Home</a></li>
+            <li><a href="{% url 'home_page' %}#event-section" class=" text-black hover:text-gray-700 font-semibold">Events</a></li>
+            <li><a href="{% url 'admin_dashboard' %}" class=" text-black hover:text-gray-700 font-semibold">About</a></li>
         </ul>
     </div>
 
