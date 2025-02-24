@@ -1,0 +1,20 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+    <div class="w-1/2 mx-auto">
+        <div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="px-2 py-1 {% if message.tags == 'success' %} bg-gray-200 text-green-600 font-bold {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ category_form }}
+            <button type="submit" class="bg-blue-700 text-white rounded-lg font-semibold p-3 mt-6">ADD</button>
+        </form>
+    </div>
+{% endblock %}

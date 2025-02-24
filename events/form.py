@@ -18,7 +18,7 @@ class FormMixin:
                 })
             elif isinstance(field.widget, forms.Textarea):
                 field.widget.attrs.update({
-                    'class': f"{self.default_classes} resize-none",
+                    'class': f"{self.default_classes} ",
                     'placeholder': f"Enter {field.label.lower()}",
                     'rows': 5
                 })
@@ -64,6 +64,11 @@ class ParticipantModelForm(FormMixin, forms.ModelForm):
     class Meta:
         model = Event
         fields = ['participants']
+        
+class ParticipantForm(FormMixin, forms.ModelForm):
+    class Meta:
+        model = Participant
+        fields = ['name', 'email']  # Fields for creating a new participant
 
 
 # Category Form
