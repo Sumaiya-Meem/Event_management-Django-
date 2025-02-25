@@ -14,7 +14,7 @@
         <hr class="my-4 border-[#ff5e0d]" />
 
         <ul class="space-y-4 mt-4">
-                  <li>
+                 <li>
                                     <a
                                       href="{% url 'admin-home' %}"
                                       class="w-full text-left p-2 hover:bg-gray-700 rounded block {% if section == 'admin_home' %}bg-gray-700{% endif %}"
@@ -56,12 +56,13 @@
                   </a>
                 </li>
         </ul>
+      </div> 
+      <div class="col-span-8 overflow-y-auto ">
+        {% block content %} {% endblock %}    
       </div>
-
-      <!-- Content Area -->
-      <div class="col-span-8 p-6 overflow-y-auto">
-        {% block content %} {% endblock %}
-      </div>
+     
     </div>
+
+     
   </body>
 </html>

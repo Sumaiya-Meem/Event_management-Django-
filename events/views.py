@@ -1,18 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from events.models import Event
+from events.models import *
 from events.form import EventModelForm, CategoryModelForm, ParticipantModelForm,ParticipantForm
-from django.db.models import Count
-
-# Create your views here.
-from django.db.models import Count, Sum
-from .models import Event, Category, Participant
-
-from django.shortcuts import render
-from django.db.models import Count
-from .models import Event, Category
-from django.db.models import Count, Q
-
+from django.db.models import Count,Q
+from datetime import datetime
 
 def home_page(request):
     categories = Category.objects.all()
@@ -55,16 +46,51 @@ def event_page(request):
     
     return render(request, "event.html")
 
+def event_detail(request,id):
+    event = Event.objects.select_related('category').prefetch_related('participants').get(id=id)
+    
+    context = {
+        'event': event,
+    }
+    return render(request, 'event_detail.html', context)
+
 def admin_dashboard(request):
-    return render(request,"dashboard.html")
+   
+    return render(request, "dashboard.html",)
+
+
+
 
 def admin_home(request):
-        total_participants = Participant.objects.aggregate(total=Count('id'))
-        context = {
-        'section': 'admin_home',
+    total_event = Event.objects.count()
+
+   
+    total_participants = Event.objects.aggregate(total=Count('participants', distinct=True))
+
+
+    upcoming_events = Event.objects.filter(date__gte=datetime.now().date()).count()
+
+   
+    past_events = Event.objects.filter(date__lte=datetime.now().date()).count()
+
+   
+    event_filter = request.GET.get('event', 'all')
+    if event_filter == 'upcoming':
+        events = Event.objects.filter(date__gte=datetime.now().date())
+    elif event_filter == 'past':
+        events = Event.objects.filter(date__lte=datetime.now().date())
+    else:
+        events = Event.objects.all()
+
+    context = {
+        'total_event': total_event,
         'total_participants': total_participants,
-        }
-        return render(request,'admin_page.html',context )
+        'upcoming_events': upcoming_events,
+        'past_events': past_events,
+        'events': events,  
+        'event_filter': event_filter,  
+    }
+    return render(request, 'admin_page.html', context)
 
 
 def create_event(request):
@@ -102,6 +128,7 @@ def create_event(request):
 
 def create_category(request):
     category_form = CategoryModelForm()
+    catgories=Category.objects.all()
 
     if request.method == 'POST':
         category_form = CategoryModelForm(request.POST)
@@ -112,7 +139,8 @@ def create_category(request):
 
     context = {
         'category_form': category_form,
-        'section': 'create_category'
+        'catgories': catgories,
+        'section': 'create_category',
     }
     return render(request, 'create_categoryForm.html', context)   
 

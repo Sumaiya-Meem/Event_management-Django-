@@ -16,5 +16,37 @@
             {{ category_form }}
             <button type="submit" class="bg-blue-700 text-white rounded-lg font-semibold p-3 mt-6">ADD</button>
         </form>
+
+
+        {% comment %} Catgory List {% endcomment %}
+
+      
+    </div>
+    <div class="container mx-auto">
+        <h1 class="text-orange-600 font-bold text-xl">ALL Category List</h1>
+        <div class="mt-6 overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="py-3 px-4 border-b text-left">Name</th>
+                  <th class="py-3 px-4 border-b text-left">Description</th>
+                  <th class="py-3 px-4 border-b text-left">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in catgories %}
+                <tr class="hover:bg-gray-50">
+                  <td class="py-3 px-4 border-b">{{category.name }}</td>
+                  <td class="py-3 px-4 border-b">{{category.description}}</td>
+                  <td class="py-3 px-4 border-b">
+                    <a href="" class="text-green-700">Edit</a> | <a href="" class="text-red-600">
+                     Delete
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
     </div>
 {% endblock %}

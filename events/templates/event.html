@@ -194,7 +194,9 @@
                                     <div><p class="">{{ event.location }}</p></div>
                                   </div>
 
-                        <button class="p-2 rounded-lg bg-gradient-to-r from-[#ffac2a] to-[#ff5e0d]">Details</button>
+                                  <div class="mt-5">
+                                    <a href="{% url 'event-detail' event.id %}" class="inline-block p-2 rounded-lg mt-2 bg-gradient-to-r from-[#ffac2a] to-[#ff5e0d] text-white font-medium">Details</a>
+                                  </div>
                     </div>
                 {% endfor %}
             </div>
