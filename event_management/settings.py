@@ -104,10 +104,11 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 # }
 # Database documentation https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://event_manager_db_6qka_user:8GgwbTRbeFJfFQNmH8a16IVI7ecgharf@dpg-cuutnv2j1k6c73a2h0gg-a.oregon-postgres.render.com/event_manager_db_6qka',
+        default='postgresql://eventmanagementdb_l3gx_user:JVxzXsWdwrSyXPHkQNTaujFFqo2TwlGf@dpg-cuuup6btq21c738v23dg-a.oregon-postgres.render.com/eventmanagementdb_l3gx',
         conn_max_age=600
     )
 }
