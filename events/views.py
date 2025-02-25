@@ -3,7 +3,7 @@ from django.contrib import messages
 from events.models import *
 from events.form import EventModelForm, CategoryModelForm, ParticipantModelForm,ParticipantForm
 from django.db.models import Count,Q
-from datetime import datetime
+from datetime import datetime, date
 
 def home_page(request):
     categories = Category.objects.all()
@@ -68,19 +68,20 @@ def admin_home(request):
     total_participants = Event.objects.aggregate(total=Count('participants', distinct=True))
 
 
-    upcoming_events = Event.objects.filter(date__gte=datetime.now().date()).count()
+    upcoming_events = Event.objects.filter(date__gt=date.today()).count()
+    past_events = Event.objects.filter(date__lt=date.today()).count()
+    today_events = Event.objects.filter(date=date.today())
 
    
-    past_events = Event.objects.filter(date__lte=datetime.now().date()).count()
-
-   
-    event_filter = request.GET.get('event', 'all')
+    event_filter = request.GET.get('event', '')
     if event_filter == 'upcoming':
-        events = Event.objects.filter(date__gte=datetime.now().date())
+        events = Event.objects.filter(date__gt=date.today())
     elif event_filter == 'past':
-        events = Event.objects.filter(date__lte=datetime.now().date())
-    else:
+        events = Event.objects.filter(date__lt=date.today())
+    elif event_filter == 'all':
         events = Event.objects.all()
+    else:
+        events = Event.objects.filter(date=date.today())
 
     context = {
         'total_event': total_event,
@@ -223,10 +224,10 @@ def update_category(request,id):
 
 def update_participant(request,id):
     participant=Participant.objects.get(id=id)
-    participant_form = ParticipantModelForm(instance=participant)
+    participant_form = ParticipantForm(instance=participant)
 
     if request.method == 'POST':
-        participant_form = ParticipantModelForm(request.POST, instance=participant) 
+        participant_form = ParticipantForm(request.POST, instance=participant) 
         if participant_form.is_valid():
             participant_form.save()  
             messages.success(request, "Participant updated successfully!")
@@ -234,7 +235,7 @@ def update_participant(request,id):
 
     context = {
         'participant_form': participant_form,
-        'section': 'update_category',
+        'section': 'create_participant',
     }
     return render(request, 'add_participant.html', context)     
  

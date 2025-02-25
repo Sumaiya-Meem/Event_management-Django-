@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
   </head>
   <body>
@@ -17,15 +17,15 @@
                  <li>
                                     <a
                                       href="{% url 'admin-home' %}"
-                                      class="w-full text-left p-2 hover:bg-gray-700 rounded block {% if section == 'admin_home' %}bg-gray-700{% endif %}"
+                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'admin_home' %}bg-gray-700{% endif %}"
                                     >
-                                      Admin Home
+                                      Admin Dashboard
                                     </a>
                                   </li>
           <li>
             <a
               href="{% url 'create-event' %}"
-              class="w-full text-left p-2 hover:bg-gray-700 rounded block {% if section == 'create_event' %}bg-gray-700{% endif %}"
+              class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_event' %}bg-gray-700{% endif %}"
             >
               Add Event
             </a>
@@ -34,7 +34,7 @@
           <li>
             <a
               href="{% url 'create-category' %}"
-              class="w-full text-left p-2 hover:bg-gray-700 rounded block {% if section == 'create_category' %}bg-gray-700{% endif %}"
+              class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_category' %}bg-gray-700{% endif %}"
             >
               Add Category
             </a>
@@ -42,7 +42,7 @@
           <li>
                   <a
                     href="{% url 'create-participant' %}"
-                    class="w-full text-left p-2 hover:bg-gray-700 rounded block {% if section == 'create_participant' %}bg-gray-700{% endif %}"
+                    class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_participant' %}bg-gray-700{% endif %}"
                   >
                     Add Participant
                   </a>
@@ -50,7 +50,7 @@
                 <li>
                   <a
                     href="{% url 'home_page' %}"
-                    class="w-full text-left p-2 hover:bg-gray-700 rounded block {% if section == 'home_page' %}bg-gray-700{% endif %}"
+                    class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'home_page' %}bg-gray-700{% endif %}"
                   >
                     Home Page
                   </a>

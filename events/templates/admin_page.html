@@ -128,8 +128,10 @@
         Upcoming Events
       {% elif event_filter == 'past' %}
         Past Events
-      {% else %}
+        {% elif event_filter == 'all' %}
         ALL Events
+      {% else %}
+        Today Events
       {% endif %}
     </h1>
      <hr>
