@@ -16,14 +16,29 @@ from django.db.models import Count, Q
 
 def home_page(request):
     categories = Category.objects.all()
-
     selected_category_id = request.GET.get('category', 'all')
-
+    
     events = Event.objects.select_related('category').prefetch_related('participants').all()
-
+    
     if selected_category_id and selected_category_id != 'all':
         events = events.filter(category_id=selected_category_id)
-
+    
+    # Search functioality
+    keyword = request.GET.get('keyword')
+    if keyword:
+        events = events.filter(Q(name__icontains=keyword) | Q(location__icontains=keyword)
+        )
+    
+    # Filter by date range
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    
+    if start_date:
+        events = events.filter(date__gte=start_date)
+    
+    if end_date:
+        events = events.filter(date__lte=end_date)
+    
     context = {
         'events': events,
         'categories': categories,
