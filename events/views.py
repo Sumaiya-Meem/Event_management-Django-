@@ -1,23 +1,53 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from events.models import Event, Category, Participant
+from events.models import Event
 from events.form import EventModelForm, CategoryModelForm, ParticipantModelForm,ParticipantForm
-
+from django.db.models import Count
 
 # Create your views here.
+from django.db.models import Count, Sum
+from .models import Event, Category, Participant
+
+from django.shortcuts import render
+from django.db.models import Count
+from .models import Event, Category
+from django.db.models import Count, Q
+
 
 def home_page(request):
-    return render(request,"home.html")
+    categories = Category.objects.all()
+
+    selected_category_id = request.GET.get('category', 'all')
+
+    events = Event.objects.select_related('category').prefetch_related('participants').all()
+
+    if selected_category_id and selected_category_id != 'all':
+        events = events.filter(category_id=selected_category_id)
+
+    context = {
+        'events': events,
+        'categories': categories,
+        'selected_category_id': selected_category_id,
+    }
+    return render(request, 'home.html', context)
+
+
+
+
 
 def event_page(request):
-    return render(request,"event.html")
+    
+    
+    return render(request, "event.html")
 
 def admin_dashboard(request):
     return render(request,"dashboard.html")
 
 def admin_home(request):
+        total_participants = Participant.objects.aggregate(total=Count('id'))
         context = {
         'section': 'admin_home',
+        'total_participants': total_participants,
         }
         return render(request,'admin_page.html',context )
 

@@ -22,9 +22,10 @@
               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
             />
           </svg>
+          
         </div>
-        <div>
-          <p class="text-3xl font-semibold mb-1"></p>
+        <div class="">
+          <p class="text-3xl font-semibold mb-1">{{total_participants.total}}</p>
         </div>
       </div>
     </div>
@@ -91,13 +92,13 @@
         PAST EVENTS
       </h3>
       <div class="flex justify-between items-start">
-        <div class="bg-rose-200 p-3 rounded-full">
+        <div class="bg-orange-200 p-3 rounded-full">
             <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            class="w-6 h-6 text-green-600"
+            class="w-6 h-6 text-orange-600"
           >
             <path
               stroke-linecap="round"
@@ -114,5 +115,11 @@
     </div>
   </div>
   {% comment %} grid div {% endcomment %}
+
+
+  {% comment %} event listing {% endcomment %}
+   <div>
+     <h1>Today Events</h1>
+   </div>
 </div>
 {% endblock %}
