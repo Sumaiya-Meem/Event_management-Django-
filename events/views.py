@@ -147,7 +147,8 @@ def create_category(request):
 def create_participant(request):
                   
     participant_form = ParticipantForm()
-    print(participant_form)
+    participants=Participant.objects.all()
+    
 
     if request.method == 'POST':
 
@@ -163,10 +164,44 @@ def create_participant(request):
     
     context = {
         'participant_form': participant_form,
+        'participants': participants,
         'section': 'create_participant'
     }
 
     return render(request, 'add_participant.html', context)
+
+
+
+def update_event(request, id):
+    event = Event.objects.get(id=id)
+    event_form = EventModelForm(instance=event) 
+    
+    participant_form = ParticipantModelForm(initial={'participants': event.participants.all()}) 
+
+    if request.method == 'POST':
+        event_form = EventModelForm(request.POST, instance=event) 
+        participant_form = ParticipantModelForm(request.POST) 
+
+        if event_form.is_valid() and participant_form.is_valid():
+            event = event_form.save() 
+
+
+            participants = participant_form.cleaned_data['participants']
+            event.participants.set(participants)
+
+            messages.success(request, "Event updated successfully!")
+            return redirect('update-event', id) 
+
+    else:
+        event_form = EventModelForm(instance=event)  
+
+    context = {
+        'event_form': event_form,
+        'participant_form': participant_form,
+        'section': 'update_event',
+    }
+    return render(request, 'event_form.html', context)
+
 
 
 

@@ -17,4 +17,33 @@
             <button type="submit" class="bg-blue-700 text-white rounded-lg font-semibold p-3 mt-6">ADD</button>
         </form>
     </div>
+
+    <div class="mt-5">
+        <h1 class="text-orange-600 font-bold text-xl ml-2">ALL participant List</h1>
+        <div class="mt-6 overflow-x-auto mx-6">
+            <table class="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="py-3 px-4 border-b text-left">Name</th>
+                  <th class="py-3 px-4 border-b text-left">Email</th>
+                  <th class="py-3 px-4 border-b text-left">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for participant in participants %}
+                <tr class="hover:bg-gray-50">
+                  <td class="py-3 px-4 border-b border-gray-200">{{participant.name }}</td>
+                  <td class="py-3 px-4 border-b border-gray-200">{{participant.email}}</td>
+                  <td class="py-3 px-4 border-b border-gray-200">
+                    <a href="" class="text-blue-400">Edit</a> | <a href="" class="text-red-600">
+                     Delete
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+    </div>
+
 {% endblock %}

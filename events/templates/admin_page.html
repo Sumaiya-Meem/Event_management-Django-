@@ -154,7 +154,9 @@
              <td class="py-3 px-4 border-b">{{ event.date }}</td>
              <td class="py-3 px-4 border-b uppercase">{{ event.time }}</td>
              <td class="py-3 px-4 border-b">
-               <a href="" class="text-green-700">Edit</a> | <a href="" class="text-red-600">
+               <a href="{% url 'update-event' event.id %}" class="text-green-700">Edit</a> | 
+               
+               <a href="" class="text-red-600">
                 Delete
                </a>
              </td>

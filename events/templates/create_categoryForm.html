@@ -20,11 +20,11 @@
 
         {% comment %} Catgory List {% endcomment %}
 
-      
     </div>
-    <div class="container mx-auto">
-        <h1 class="text-orange-600 font-bold text-xl">ALL Category List</h1>
-        <div class="mt-6 overflow-x-auto">
+    <div class="mt-5">
+        <h1 class="text-orange-600 font-bold text-xl ml-2">ALL Category List</h1>
+        
+        <div class="mt-6 overflow-x-auto mx-4">
             <table class="min-w-full bg-white border border-gray-200">
               <thead>
                 <tr class="bg-gray-100">
@@ -36,10 +36,10 @@
               <tbody>
                 {% for category in catgories %}
                 <tr class="hover:bg-gray-50">
-                  <td class="py-3 px-4 border-b">{{category.name }}</td>
-                  <td class="py-3 px-4 border-b">{{category.description}}</td>
-                  <td class="py-3 px-4 border-b">
-                    <a href="" class="text-green-700">Edit</a> | <a href="" class="text-red-600">
+                  <td class="py-3 px-4 border-b border-gray-200">{{category.name }}</td>
+                  <td class="py-3 px-4 border-b border-gray-200">{{category.description}}</td>
+                  <td class="py-3 px-4 border-b border-gray-200">
+                    <a href="" class="text-blue-400">Edit</a> | <a href="" class="text-red-600">
                      Delete
                     </a>
                   </td>
