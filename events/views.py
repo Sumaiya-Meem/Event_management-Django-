@@ -142,7 +142,8 @@ def create_category(request):
         'catgories': catgories,
         'section': 'create_category',
     }
-    return render(request, 'create_categoryForm.html', context)   
+    return render(request, 'create_categoryForm.html', context)  
+ 
 
 def create_participant(request):
                   
@@ -201,6 +202,78 @@ def update_event(request, id):
         'section': 'update_event',
     }
     return render(request, 'event_form.html', context)
+
+
+def update_category(request,id):
+    catgory=Category.objects.get(id=id)
+    category_form = CategoryModelForm(instance=catgory)
+
+    if request.method == 'POST':
+        category_form = CategoryModelForm(request.POST, instance=catgory) 
+        if category_form.is_valid():
+            category_form.save()  
+            messages.success(request, "Category updated successfully!")
+            return redirect('create-category')  
+
+    context = {
+        'category_form': category_form,
+        'section': 'update_category',
+    }
+    return render(request, 'create_categoryForm.html', context)      
+
+def update_participant(request,id):
+    participant=Participant.objects.get(id=id)
+    participant_form = ParticipantModelForm(instance=participant)
+
+    if request.method == 'POST':
+        participant_form = ParticipantModelForm(request.POST, instance=participant) 
+        if participant_form.is_valid():
+            participant_form.save()  
+            messages.success(request, "Participant updated successfully!")
+            return redirect('create-participant')  
+
+    context = {
+        'participant_form': participant_form,
+        'section': 'update_category',
+    }
+    return render(request, 'add_participant.html', context)     
+ 
+
+
+def delete_event(request,id):
+   if request.method=='POST':
+      event=Event.objects.get(id=id)
+      event.delete()
+      
+      messages.success(request,'Event deleted successfully')
+      return redirect('admin-home')
+   else:
+    messages.error(request,"Something went wrong")
+    return redirect('admin-home')
+
+
+
+def delete_category(request,id):
+   if request.method=='POST':
+      category=Category.objects.get(id=id)
+      category.delete()
+      
+      messages.success(request,'Category deleted successfully')
+      return redirect('create-category')
+   else:
+    messages.error(request,"Something went wrong")
+    return redirect('create-category')
+
+def delete_participant(request,id):
+   if request.method=='POST':
+      participant=Participant.objects.get(id=id)
+      participant.delete()
+      
+      messages.success(request,'Participant deleted successfully')
+      return redirect('create-participant')
+   else:
+    messages.error(request,"Something went wrong")
+    return redirect('create-participant')
 
 
 

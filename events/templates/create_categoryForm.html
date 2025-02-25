@@ -23,7 +23,6 @@
     </div>
     <div class="mt-5">
         <h1 class="text-orange-600 font-bold text-xl ml-2">ALL Category List</h1>
-        
         <div class="mt-6 overflow-x-auto mx-4">
             <table class="min-w-full bg-white border border-gray-200">
               <thead>
@@ -39,9 +38,13 @@
                   <td class="py-3 px-4 border-b border-gray-200">{{category.name }}</td>
                   <td class="py-3 px-4 border-b border-gray-200">{{category.description}}</td>
                   <td class="py-3 px-4 border-b border-gray-200">
-                    <a href="" class="text-blue-400">Edit</a> | <a href="" class="text-red-600">
-                     Delete
-                    </a>
+                    <a href="{% url 'update-category' category.id %}" class="text-blue-500">Edit</a> |
+                    <form action="{% url 'delete-category' category.id %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class=" text-red-500">
+                        Delete
+                      </button>
+                    </form>
                   </td>
                 </tr>
                 {% endfor %}

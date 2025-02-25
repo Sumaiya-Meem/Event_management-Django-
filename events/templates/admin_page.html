@@ -156,9 +156,12 @@
              <td class="py-3 px-4 border-b">
                <a href="{% url 'update-event' event.id %}" class="text-green-700">Edit</a> | 
                
-               <a href="" class="text-red-600">
-                Delete
-               </a>
+               <form action="{% url 'delete-event' event.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class=" text-red-500">
+                  Delete
+                </button>
+              </form>
              </td>
            </tr>
            {% endfor %}

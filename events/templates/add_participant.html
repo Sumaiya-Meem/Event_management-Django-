@@ -35,9 +35,13 @@
                   <td class="py-3 px-4 border-b border-gray-200">{{participant.name }}</td>
                   <td class="py-3 px-4 border-b border-gray-200">{{participant.email}}</td>
                   <td class="py-3 px-4 border-b border-gray-200">
-                    <a href="" class="text-blue-400">Edit</a> | <a href="" class="text-red-600">
-                     Delete
-                    </a>
+                    <a href="{% url 'update-participant' participant.id %}" class="text-blue-500">Edit</a> |
+                    <form action="{% url 'delete-participant' participant.id %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class=" text-red-500">
+                        Delete
+                      </button>
+                    </form>
                   </td>
                 </tr>
                 {% endfor %}
