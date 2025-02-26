@@ -54,9 +54,9 @@ def event_detail(request,id):
     }
     return render(request, 'event_detail.html', context)
 
-def admin_dashboard(request):
+# def admin_dashboard(request):
    
-    return render(request, "dashboard.html",)
+#     return render(request, "admin_page.html",)
 
 
 
