@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-j16ndwj%tg4mir7l(&289s8a=d=1#4516)7q=@iw-52h=d_4j1
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS=['https://*.onrend.com','http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS=['https://*.onrender.com','http://127.0.0.1:8000','https://event-management-django-ngwz.onrender.com']
 
 # Application definition
 
@@ -92,27 +92,26 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'eventmanagementdb_l3gx',
-        'USER': 'eventmanagementdb_l3gx_user',
-        'PASSWORD': 'JVxzXsWdwrSyXPHkQNTaujFFqo2TwlGf',
-        'HOST': 'dpg-cuuup6btq21c738v23dg-a.oregon-postgres.render.com',
-        'PORT': '5432',  
-    }
-}
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'event_management',
+#         'USER': 'postgres',
+#         'PASSWORD': 'meem23',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
 # Database documentation https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # Replace the SQLite DATABASES configuration with PostgreSQL:
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         # Replace this value with your local database's connection string.
-#         default='postgresql://eventmanagementdb_l3gx_user:JVxzXsWdwrSyXPHkQNTaujFFqo2TwlGf@dpg-cuuup6btq21c738v23dg-a.oregon-postgres.render.com/eventmanagementdb_l3gx',
-#         conn_max_age=600
-#     )
-# }
+DATABASES = {
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://eventmanagementdb_l3gx_user:JVxzXsWdwrSyXPHkQNTaujFFqo2TwlGf@dpg-cuuup6btq21c738v23dg-a.oregon-postgres.render.com/eventmanagementdb_l3gx',
+        conn_max_age=600
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
