@@ -60,10 +60,10 @@
                 <p class="text-white text-center mb-6">
                   Login to our website, or<a href="{% url 'sign-up' %}" class="font-bold"> REGISTER</a>
                 </p>
-                
+            </div>
                 {% if messages %}
             {% for message in messages %}
-                <div class="px-2 py-1 {% if message.tags == 'success' %}bg-green-500{% endif %} ">{{message}}</div>
+                <p class="text-white font-semibold">{{message}}</p>
               {% endfor %}
             {% endif %}
 

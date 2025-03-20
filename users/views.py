@@ -1,28 +1,28 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from users.forms import CustomRegisterForm,LoginForm
 from django.contrib import messages
 from django.contrib.auth import login,logout
+from django.contrib.auth.models import User,Group
+from django.contrib.auth.tokens import default_token_generator
 # Create your views here.
 
 def sign_up(request):
     form = CustomRegisterForm()
     if request.method=='POST':
-        form = CustomRegisterForm(request.POST)
-        if form.is_valid():
-            # print(form.cleaned_data)
+          form = CustomRegisterForm(request.POST)
+          if form.is_valid():
             user=form.save(commit=False)
-#             print('user',user)
+            print('user',user)
             user.set_password(form.cleaned_data.get('password'))
             user.is_active=False
             user.save()
-#             print('user',user)
             messages.success(request, "A Confirmation mail sent. Please check your email")
             return redirect('sign-in')
-        else:
+    else:
             print("Form is not valid")
             
-        context = {'form': form}
-        return render(request,'registration/register.html',context)
+    context = {'form': form}
+    return render(request,'registration/register.html',context)
 
 
 
@@ -34,7 +34,6 @@ def sign_in(request):
       print(form)
       if form.is_valid():
          user=form.get_user()
-#          print('user in login',user)
          login(request, user)
          return redirect('home')  
    return render(request,'registration/login.html',{'form':form})
@@ -44,3 +43,17 @@ def log_out(request):
    if request.method=='POST':
       logout(request)
       return redirect('home')
+
+def activate_user(request, user_id, token):
+    try:
+        user = User.objects.get(id=user_id)
+        if default_token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            return redirect('sign-in')
+        else:
+            return HttpResponse('Invalid Id or token')
+
+    except User.DoesNotExist:
+        return HttpResponse('User not found')
+     
