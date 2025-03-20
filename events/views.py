@@ -5,6 +5,8 @@ from events.form import EventModelForm, CategoryModelForm, ParticipantModelForm,
 from django.db.models import Count,Q
 from datetime import datetime, date
 
+
+
 def home_page(request):
     categories = Category.objects.all()
     selected_category_id = request.GET.get('category', 'all')
