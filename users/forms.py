@@ -63,6 +63,12 @@ class CustomRegisterForm(FormMixin,forms.ModelForm):
             return cleaned_data
             
 
-
+class LoginForm(FormMixin, AuthenticationForm):
+   
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'value': ''}))
+    
+    def __init__(self, *arg, **kwargs):
+        super().__init__(*arg, **kwargs)
+        self.fields['username'].widget.attrs.update({'autocomplete': 'off', 'value': ''})
             
 
