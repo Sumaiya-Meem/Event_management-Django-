@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from events.models import *
-from events.form import EventModelForm, CategoryModelForm, ParticipantModelForm,ParticipantForm
+from events.form import EventModelForm, CategoryModelForm, ParticipantModelForm,ParticipantForm,AssignRoleForm
 from django.db.models import Count,Q
 from datetime import datetime, date
+from django.contrib.auth.models import User
 
 
 
@@ -277,6 +278,26 @@ def delete_participant(request,id):
    else:
     messages.error(request,"Something went wrong")
     return redirect('create-participant')
+
+def user_list(request):
+    users=User.objects.all()
+    
+    return render(request, 'User/userList.html',{"users":users})   
+
+def assign_role(request,user_id):
+   user=User.objects.get(id=user_id)
+   
+   form=AssignRoleForm()
+   if request.method=='POST':
+      form=AssignRoleForm(request.POST)
+      if form.is_valid():
+         role=form.cleaned_data.get('role')
+         user.groups.clear()
+         user.groups.add(role)
+         messages.success(request,f"{user.username} you are assigned to {role.name} role")
+         return redirect('user-list')
+      
+   return render(request,'User/assign_role.html',{'form':form})
 
 
 

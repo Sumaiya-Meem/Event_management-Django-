@@ -22,12 +22,28 @@
                                       Admin Dashboard
                                     </a>
                                   </li>
+                                  <li>
+                                    <a
+                                      href="{% url 'user-list' %}"
+                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_event' %}bg-gray-700{% endif %}"
+                                    >
+                                    User List
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="{% url 'create-event' %}"
+                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_event' %}bg-gray-700{% endif %}"
+                                    >
+                                    Group List
+                                    </a>
+                                  </li>
           <li>
             <a
               href="{% url 'create-event' %}"
               class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_event' %}bg-gray-700{% endif %}"
             >
-              Add Event
+            Event List
             </a>
           </li>
 
@@ -36,7 +52,7 @@
               href="{% url 'create-category' %}"
               class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_category' %}bg-gray-700{% endif %}"
             >
-              Add Category
+              Category List
             </a>
           </li>
           <li>
@@ -44,7 +60,7 @@
                     href="{% url 'create-participant' %}"
                     class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_participant' %}bg-gray-700{% endif %}"
                   >
-                    Add Participant
+                  Participant List
                   </a>
                 </li>
                 <li>

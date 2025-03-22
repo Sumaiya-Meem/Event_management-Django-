@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import  home_page, event_page, create_event, create_category,create_participant,admin_home,event_detail,update_event,update_category,delete_event,delete_category,delete_participant,update_participant
+from .views import  home_page, event_page, create_event, create_category,create_participant,admin_home,event_detail,update_event,update_category,delete_event,delete_category,delete_participant,update_participant,user_list,assign_role
 
 urlpatterns = [
     # path('dashboard/', admin_dashboard, name='admin_dashboard'),
@@ -16,4 +16,7 @@ urlpatterns = [
     path("delete_category/<int:id>/",delete_category,name="delete-category"),
     path("delete_participant/<int:id>/",delete_participant,name="delete-participant"),
     path("update_participant/<int:id>/",update_participant,name="update-participant"),
+    path("user_list/",user_list,name="user-list"),
+    path('admin/<int:user_id>/assign-role', assign_role, name='assign-role'),
+    
 ]

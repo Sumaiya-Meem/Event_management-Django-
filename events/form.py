@@ -1,5 +1,6 @@
 from django import forms
 from .models import Event, Participant, Category
+from django.contrib.auth.models import Group
 
 # Form Mixin for Styling
 class FormMixin:
@@ -79,3 +80,9 @@ class CategoryModelForm(FormMixin, forms.ModelForm):
         widgets = {
             'description': forms.Textarea(attrs={'rows': 5}),
         }
+        
+class AssignRoleForm(FormMixin, forms.Form):
+    role = forms.ModelChoiceField(
+        queryset=Group.objects.all(),
+        empty_label="Select a Role"
+    ) 
