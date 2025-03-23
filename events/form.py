@@ -1,7 +1,7 @@
 from django import forms
-from .models import Event, Participant, Category
+from .models import Event,Category
 from django.contrib.auth.models import Group,Permission
-
+from django.contrib.auth.models import User
 # Form Mixin for Styling
 class FormMixin:
     def __init__(self, *args, **kwargs):
@@ -58,7 +58,7 @@ class EventModelForm(FormMixin, forms.ModelForm):
 # Participant Form
 class ParticipantModelForm(FormMixin, forms.ModelForm):
     participants = forms.ModelMultipleChoiceField(
-        queryset=Participant.objects.all(),
+        queryset=User.objects.all(),  
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'space-y-2 mt-2'})
     )
 
@@ -68,8 +68,8 @@ class ParticipantModelForm(FormMixin, forms.ModelForm):
         
 class ParticipantForm(FormMixin, forms.ModelForm):
     class Meta:
-        model = Participant
-        fields = ['name', 'email']  # Fields for creating a new participant
+        model = User
+        fields = ['username', 'email'] 
 
 
 # Category Form
