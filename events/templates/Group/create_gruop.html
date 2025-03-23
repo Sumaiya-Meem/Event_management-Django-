@@ -1,0 +1,13 @@
+{% extends "dashboard.html" %}
+{% block content %}
+
+<div class="shadow-lg m-3 bg-gray-100 p-2 font-semibold space-y-2">
+                  
+                      <form action="" method="POST">
+                                {% csrf_token %}
+                                {{form}}
+                                <button type="submit" class="bg-blue-600 text-white mt-3 w-full p-2">Create</button>
+                      </form>
+</div>
+
+{% endblock content %}

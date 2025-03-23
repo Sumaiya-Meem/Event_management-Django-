@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from events.models import *
-from events.form import EventModelForm, CategoryModelForm, ParticipantModelForm,ParticipantForm,AssignRoleForm
+from events.form import EventModelForm, CategoryModelForm, ParticipantModelForm,ParticipantForm,AssignRoleForm,CreateGroupForm
 from django.db.models import Count,Q
 from datetime import datetime, date
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 
 
 
@@ -301,4 +301,30 @@ def assign_role(request,user_id):
 
 
 
+def create_group(request):
+    form = CreateGroupForm()
+    if request.method == 'POST':
+        form = CreateGroupForm(request.POST)
+        if form.is_valid():
+            group = form.save()
+            messages.success(request, f"Group {group.name} has been created successfully")
+            return redirect('group-list')
+    return render(request, 'Group/create_gruop.html', {'form': form})
 
+def group_list(request):
+    groups = Group.objects.prefetch_related('permissions').all()
+    return render(request, 'Group/group_list.html', {'groups': groups})
+
+def delete_group(request,gruop_id):
+    print(gruop_id)
+    if request.method=='POST':
+        group=Group.objects.get(id=gruop_id)
+        print(group)
+        group.delete()
+        messages.success(request,f"Group {group.name} deleted successfully")
+        return redirect('group-list')
+        
+    else:
+        messages.error(request,"Something went wrong")
+        return redirect('group-list')
+    

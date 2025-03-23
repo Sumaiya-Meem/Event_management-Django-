@@ -1,6 +1,6 @@
 from django import forms
 from .models import Event, Participant, Category
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group,Permission
 
 # Form Mixin for Styling
 class FormMixin:
@@ -86,3 +86,15 @@ class AssignRoleForm(FormMixin, forms.Form):
         queryset=Group.objects.all(),
         empty_label="Select a Role"
     ) 
+    
+class CreateGroupForm(FormMixin, forms.ModelForm):
+    permissions = forms.ModelMultipleChoiceField(
+        queryset=Permission.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label='Assign Permission'
+    )
+
+    class Meta:
+        model = Group
+        fields = ['name', 'permissions']
