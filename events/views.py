@@ -182,6 +182,7 @@ def delete_event(request, id):
 def create_category(request):
     category_form = CategoryModelForm()
     categories = Category.objects.all()
+    # print(categories)
 
     if request.method == 'POST':
         category_form = CategoryModelForm(request.POST)
