@@ -134,7 +134,6 @@ def create_event(request):
 
         if event_form.is_valid() and participant_form.is_valid():
             event = event_form.save()
-            # Correctly associate the participants with the event
             event.participants.set(participant_form.cleaned_data['participants'])
             messages.success(request, "Event created successfully!")
             return redirect('create-event')

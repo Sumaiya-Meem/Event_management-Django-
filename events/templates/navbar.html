@@ -2,133 +2,226 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Navbar</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
-</head>
-<body>
-    <nav class="flex justify-between items-center shadow-md bg-gradient-to-r from-[#ef621b] to-[#ffac2a] px-6 py-1">
-        <div>
-            <img src="{% static 'images/logo1.png' %}" alt="Logo" class="w-[100px] h-[80px]">
-        </div>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+  <body>
+    <nav
+      class="flex justify-between items-center shadow-md bg-gradient-to-r from-[#ef621b] to-[#ffac2a] px-6 py-1"
+    >
+      <div>
+        <img
+          src="{% static 'images/logo1.png' %}"
+          alt="Logo"
+          class="w-[100px] h-[80px]"
+        />
+      </div>
 
-        <div class="hidden md:flex  ">
-            <ul class="flex justify-between items-center gap-2">
-                <li><a href="{% url 'home_page' %}" class="font-semibold text-black hover:text-gray-900">Home</a></li>
-                <li><a href="{% url 'home_page' %}#event-section" class="font-semibold text-black hover:text-gray-900">Events</a></li>
-                {% if user.is_authenticated %}
-                  {% if user.groups.all.0.name == "User" %}
-                      <li><a href="{% url 'participant-dashboard' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
-                   {% endif %}
-                   {% elif user.groups.all.0.name == "Organizer" %}
-                   <li><a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
-                   {% elif user.groups.all.0.name == "Admin" %}
-                   <li><a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
-                   
-                
-                {% endif %}
-                
-            </ul>
-        </div>
+      <div class="hidden md:flex">
+        <ul class="flex justify-between items-center gap-2">
+          <li>
+            <a
+              href="{% url 'home_page' %}"
+              class="font-semibold text-black hover:text-gray-900"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'home_page' %}#event-section"
+              class="font-semibold text-black hover:text-gray-900"
+              >Events</a
+            >
+          </li>
+          {% if user.is_authenticated %} 
+          {% if user.groups.all.0.name == "User" %}
+              <li>
+                  <a href="{% url 'participant-dashboard' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a>
+              </li>
+          {% elif user.groups.all.0.name == "Organizer" %}
+              <li>
+                  <a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a>
+              </li>
+          {% elif user.groups.all.0.name == "Admin" %}
+              <li>
+                  <a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a>
+              </li>
+          {% endif %}
+      {% endif %}
+      
+        </ul>
+      </div>
 
-        <div class="relative hidden md:flex items-center gap-4">
-            {% if user.is_authenticated %}
-            <div class="relative">
-                <button id="user-toggle" class="focus:outline-none">
-                    <img src="{% static 'images/user.png' %}" alt="User" class="w-10 h-10 rounded-full cursor-pointer">
-                </button>
+      <div class="relative hidden md:flex items-center gap-4">
+        {% if user.is_authenticated %}
+        <div class="relative">
+          <button id="user-toggle" class="focus:outline-none">
+            <img
+              src="{% static 'images/user.png' %}"
+              alt="User"
+              class="w-10 h-10 rounded-full cursor-pointer"
+            />
+          </button>
 
-                <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md p-3 z-10">
-                    <p class="uppercase font-semibold">{{ user.username }}</p>
-                    <p class="text-gray-600 text-sm">{{ user.email }}</p>
-                    <hr class="my-2">
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button class="bg-red-500 text-white w-full py-2 rounded-md hover:bg-red-600 transition">Logout</button>
-                    </form>
-                </div>
-            </div>
-            {% else %}
-            <a href="{% url 'sign-in' %}" class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition">Sign In</a>
-            <a href="{% url 'sign-up' %}" class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition">Sign Up</a>
-            {% endif %}
+          <div
+            id="user-dropdown"
+            class="hidden absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md p-3 z-10"
+          >
+            <p class="uppercase font-semibold">{{ user.username }}</p>
+            <p class="text-gray-600 text-sm">{{ user.email }}</p>
+            <hr class="my-2" />
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button
+                class="bg-red-500 text-white w-full py-2 rounded-md hover:bg-red-600 transition"
+              >
+                Logout
+              </button>
+            </form>
+          </div>
         </div>
+        {% else %}
+        <a
+          href="{% url 'sign-in' %}"
+          class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition"
+          >Sign In</a
+        >
+        <a
+          href="{% url 'sign-up' %}"
+          class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition"
+          >Sign Up</a
+        >
+        {% endif %}
+      </div>
 
-        <div class="md:hidden">
-            <button id="menu-toggle" class="text-gray-800 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-        </div>
+      <div class="md:hidden">
+        <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
+          </svg>
+        </button>
+      </div>
     </nav>
 
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md p-4">
-        {% if user.is_authenticated %}
-        <div class="my-2 text-center">
-            <img src="{% static 'images/user.png' %}" alt="User" class="w-12 h-12 mx-auto rounded-full">
-            <p class="uppercase font-semibold">{{ user.username }}</p>
-            <p class="text-gray-600 text-sm">{{ user.email }}</p>
-        </div>
-        <hr>
-        {% endif %}
+      {% if user.is_authenticated %}
+      <div class="my-2 text-center">
+        <img
+          src="{% static 'images/user.png' %}"
+          alt="User"
+          class="w-12 h-12 mx-auto rounded-full"
+        />
+        <p class="uppercase font-semibold">{{ user.username }}</p>
+        <p class="text-gray-600 text-sm">{{ user.email }}</p>
+      </div>
+      <hr />
+      {% endif %}
 
-        <ul class="flex flex-col space-y-4 mt-2">
-            <li><a href="{% url 'home_page' %}" class="text-black hover:text-gray-700 font-semibold">Home</a></li>
-            <li><a href="{% url 'home_page' %}#event-section" class="text-black hover:text-gray-700 font-semibold">Events</a></li>
-            {% if user.is_authenticated %}
-                  {% if user.groups.all.0.name == "User" %}
-                      <li><a href="{% url 'participant-dashboard' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
-                   {% endif %}
-                {% else %}
-                <li><a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
-                {% endif %}
-           
-            {% if user.is_authenticated %}
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button class="bg-red-500 text-white w-full py-2 rounded-md hover:bg-red-600 transition">Logout</button>
-            </form>
-            {% else %}
-            <li>
-                <a href="{% url 'sign-in' %}" class="bg-orange-500 text-white text-center px-4 py-2 rounded-md hover:bg-orange-600 transition block">Sign In</a>
-            </li>
-            <li>
-                <a href="{% url 'sign-up' %}" class="bg-orange-600 text-white text-center px-4 py-2 rounded-md hover:bg-orange-700 transition block">Sign Up</a>
-            </li>
-            {% endif %}
-        </ul>
+      <ul class="flex flex-col space-y-4 mt-2">
+        <li>
+          <a
+            href="{% url 'home_page' %}"
+            class="text-black hover:text-gray-700 font-semibold"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="{% url 'home_page' %}#event-section"
+            class="text-black hover:text-gray-700 font-semibold"
+            >Events</a
+          >
+        </li>
+        {% if user.is_authenticated %} 
+    {% if user.groups.all.0.name == "User" %}
+        <li>
+            <a href="{% url 'participant-dashboard' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a>
+        </li>
+    {% elif user.groups.all.0.name == "Organizer" %}
+        <li>
+            <a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a>
+        </li>
+    {% elif user.groups.all.0.name == "Admin" %}
+        <li>
+            <a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a>
+        </li>
+    {% endif %}
+{% endif %}
+
+        
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button
+            class="bg-red-500 text-white w-full py-2 rounded-md hover:bg-red-600 transition"
+          >
+            Logout
+          </button>
+        </form>
+        {% else %}
+        <li>
+          <a
+            href="{% url 'sign-in' %}"
+            class="bg-orange-500 text-white text-center px-4 py-2 rounded-md hover:bg-orange-600 transition block"
+            >Sign In</a
+          >
+        </li>
+        <li>
+          <a
+            href="{% url 'sign-up' %}"
+            class="bg-orange-600 text-white text-center px-4 py-2 rounded-md hover:bg-orange-700 transition block"
+            >Sign Up</a
+          >
+        </li>
+        {% endif %}
+      </ul>
     </div>
 
     <script>
-        const userToggle = document.getElementById('user-toggle');
-        const userDropdown = document.getElementById('user-dropdown');
+      const userToggle = document.getElementById("user-toggle");
+      const userDropdown = document.getElementById("user-dropdown");
 
-        if (userToggle) {
-            userToggle.addEventListener('click', () => {
-                userDropdown.classList.toggle('hidden');
-            });
-
-        
-            document.addEventListener('click', (event) => {
-                if (!userToggle.contains(event.target) && !userDropdown.contains(event.target)) {
-                    userDropdown.classList.add('hidden');
-                }
-            });
-        }
-
-    
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+      if (userToggle) {
+        userToggle.addEventListener("click", () => {
+          userDropdown.classList.toggle("hidden");
         });
+
+        document.addEventListener("click", (event) => {
+          if (
+            !userToggle.contains(event.target) &&
+            !userDropdown.contains(event.target)
+          ) {
+            userDropdown.classList.add("hidden");
+          }
+        });
+      }
+
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
     </script>
-</body>
+  </body>
 </html>
