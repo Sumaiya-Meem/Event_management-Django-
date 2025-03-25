@@ -25,7 +25,7 @@
                                   <li>
                                     <a
                                       href="{% url 'user-list' %}"
-                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_event' %}bg-gray-700{% endif %}"
+                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'user-list' %}bg-gray-700{% endif %}"
                                     >
                                     User List
                                     </a>
@@ -33,7 +33,7 @@
                                   <li>
                                     <a
                                       href="{% url 'group-list' %}"
-                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_event' %}bg-gray-700{% endif %}"
+                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'group-list' %}bg-gray-700{% endif %}"
                                     >
                                     Group List
                                     </a>
@@ -55,14 +55,24 @@
               Category List
             </a>
           </li>
-          <li>
+          {% comment %} <li>
                   <a
-                    href="{% url 'create-participant' %}"
+                    href=""
                     class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_participant' %}bg-gray-700{% endif %}"
                   >
                   Participant List
                   </a>
+                </li> {% endcomment %}
+               
+                <li>
+                  <a
+                    href="{% url 'participant-dashboard' %}"
+                    class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'participant-dashboard' %}bg-gray-700{% endif %}"
+                  >
+                    RSVP
+                  </a>
                 </li>
+
                 <li>
                   <a
                     href="{% url 'home_page' %}"

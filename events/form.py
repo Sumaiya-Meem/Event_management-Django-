@@ -47,7 +47,7 @@ class EventModelForm(FormMixin, forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ['name', 'description', 'date', 'time', 'location', 'category']
+        fields = ['name', 'description', 'date', 'time', 'location', 'category', 'asset']
         widgets = {
             'date': forms.SelectDateWidget,
             'time': forms.TimeInput(attrs={'type': 'time'}),
@@ -59,7 +59,8 @@ class EventModelForm(FormMixin, forms.ModelForm):
 class ParticipantModelForm(FormMixin, forms.ModelForm):
     participants = forms.ModelMultipleChoiceField(
         queryset=User.objects.all(),  
-        widget=forms.CheckboxSelectMultiple(attrs={'class': 'space-y-2 mt-2'})
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'space-y-2 mt-2'}),
+        required=False  
     )
 
     class Meta:

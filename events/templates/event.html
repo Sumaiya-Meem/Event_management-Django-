@@ -70,8 +70,8 @@
     </section>
 
     <!-- Events Listing Section -->
-    <section class="py-12 bg-gray-50">
-        <div class="container mx-auto">
+    <section class="py-12 bg-gray-50 ">
+        <div class="mx-3">
          
                   <div class="mb-6 ">
                             {% comment %} <span><svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +97,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {% for event in events %}
                     <div class="bg-white p-6 rounded-lg shadow-md border-[1px] border-orange-600 space-y-2">
-                         <img src="{% static 'images/img1.jpeg' %}" alt="">
+                         <div class="h-[200px]">
+                          <img src={{event.asset.url}} alt="" class="">
+                         </div>
                         <h3 class="text-xl font-bold mb-2">{{ event.name }}</h3>
                         <p class="text-gray-600 mb-2 font-medium">{{ event.category.name }}</p>
                         {% comment %} participant {% endcomment %}
@@ -194,8 +196,17 @@
                                     <div><p class="">{{ event.location }}</p></div>
                                   </div>
 
-                                  <div class="mt-5">
-                                    <a href="{% url 'event-detail' event.id %}" class="inline-block p-2 rounded-lg mt-2 bg-gradient-to-r from-[#ffac2a] to-[#ff5e0d] text-white font-medium">Details</a>
+                                  <div class="flex justify-between items-center">
+                                    <div class="mt-5">
+                                      <a href="{% url 'event-detail' event.id %}" class="inline-block p-2 rounded-lg mt-2 bg-gradient-to-r from-[#ffac2a] to-[#ff5e0d] text-white font-medium">Details</a>
+                                    </div>
+                                    <div class="mt-5">
+                                      <form action="" method="post">
+                                        {% csrf_token %}
+                                        <a href="{% url 'rsvp-event' event.id %}"
+                                        class="rsvp-btn">RSVP</a>
+                                      </form>
+                                    </div>
                                   </div>
                     </div>
                 {% endfor %}
