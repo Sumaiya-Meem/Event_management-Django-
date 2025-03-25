@@ -10,7 +10,19 @@
   <body>
     <div class="grid grid-cols-12 h-screen">
       <div class="col-span-4 bg-gray-800 text-white p-6 overflow-y-auto ">
-        <h2 class="text-xl font-bold text-center mb-3">Admin Panel</h2>
+        {% if user.is_authenticated %}
+            {% if user.groups.all.0.name == "Admin" %}
+            <h2 class="text-xl font-bold text-center mb-3">Admin Panel</h2>
+            
+            {% elif user.groups.all.0.name == "Organizer" %}
+            <h2 class="text-xl font-bold text-center mb-3">Organizer Panel</h2>
+
+            {% elif user.groups.all.0.name == "User" %}
+            <h2 class="text-xl font-bold text-center mb-3">User Panel</h2>
+
+            {% endif %}
+          {% endif %}
+        
         <hr class="my-4 border-[#ff5e0d]" />
 
         <ul class="space-y-4 mt-4">
@@ -31,6 +43,7 @@
 
             {% elif user.groups.all.0.name == "User" %}
               <li><a href="{% url 'participant-dashboard' %}" class="menu-item {% if section == 'participant-dashboard' %}active{% endif %}">RSVP</a></li>
+              <li><a href="{% url 'home_page' %}" class="menu-item {% if section == 'home_page' %}active{% endif %}">Home Page</a></li>
 
             {% endif %}
           {% endif %}
