@@ -25,8 +25,12 @@
                   {% if user.groups.all.0.name == "User" %}
                       <li><a href="{% url 'participant-dashboard' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
                    {% endif %}
-                {% else %}
-                <li><a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
+                   {% elif user.groups.all.0.name == "Organizer" %}
+                   <li><a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
+                   {% elif user.groups.all.0.name == "Admin" %}
+                   <li><a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
+                   
+                
                 {% endif %}
                 
             </ul>

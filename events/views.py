@@ -286,7 +286,7 @@ def rsvp_event(request, event_id):
 
             event.participants.add(request.user)
 
-            messages.success(request, "You have successfully RSVPed for the event.")
+            messages.success(request, "You have successfully RSVPed for the event.Check your Email")
             return redirect('event-detail', id=event_id)  
         else:
            

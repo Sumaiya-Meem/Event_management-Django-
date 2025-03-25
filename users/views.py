@@ -27,16 +27,18 @@ def sign_up(request):
 
 
 def sign_in(request):
-   form=LoginForm()
+    form = LoginForm()
 
-   if request.method=='POST':
-      form=LoginForm(data=request.POST)
-      print(form)
-      if form.is_valid():
-         user=form.get_user()
-         login(request, user)
-         return redirect('home')  
-   return render(request,'registration/login.html',{'form':form})
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            user_group, created = Group.objects.get_or_create(name='User')
+            if not user.groups.filter(name='User').exists():
+                user.groups.add(user_group)
+            return redirect('home')
+    return render(request, 'registration/login.html', {'form': form})
 
 @login_required
 def log_out(request):
