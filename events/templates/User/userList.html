@@ -3,6 +3,14 @@
 {% block content %}
 
 <div class="container mx-auto p-6">
+                 <div>
+                  {% for message in messages %}
+                                    
+                  <h1>{{message}}</h1>
+                
+                {% endfor %}
+              
+                 </div>
                   <div class="overflow-x-auto">
                     <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
                       <thead class="bg-gray-100">
@@ -48,12 +56,28 @@
                                   <td class="px-4 py-4 whitespace-nowrap">{{user.id}}</td>
                                   <td class="px-4 py-4 whitespace-nowrap">{{user.groups.first.name|default:"No Group Assigned"}}</td>
                                   <td class="p-2 whitespace-nowrap">
-                                  <a
-                                      href="{% url 'assign-role' user.id %}"
-                                      class=" text-blue-800 bg-gray-100 font-bold p-2 rounded"
-                                  >
-                                      Change Role
-                                  </a>
+                                 <div class="flex items-center justify-between">
+                                  <div>
+                                    <a
+                                  href="{% url 'assign-role' user.id %}"
+                                  class=" text-blue-800  font-bold mr-1 mt-1"
+                              >
+                                  Change Role
+                              </a>
+                                  </div>
+                              <p class="">|</p>
+                               <div>
+                                <form action="{% url 'delete-user' user.id %}" method="POST" class="">
+                                  {% csrf_token %}
+                                  <button class=" text-red-500  text-center">
+                                            
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                  <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                </svg>
+                                  </button>
+                              </form>
+                               </div>
+                                 </div>
                                   </td>
                               </tr>
                           {% endfor %}

@@ -5,58 +5,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Navbar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
-    
 </head>
 <body>
-    <nav class="flex justify-around items-center shadow-md bg-gradient-to-r from-[#ef621b] to-[#ffac2a] ">
-   
+    <nav class="flex justify-between items-center shadow-md bg-gradient-to-r from-[#ef621b] to-[#ffac2a] px-6 py-1">
         <div>
             <img src="{% static 'images/logo1.png' %}" alt="Logo" class="w-[100px] h-[80px]">
         </div>
 
-       
-        <div class="hidden md:flex  mr-16">
-            <ul class="flex space-x-8">
+        <div class="hidden md:flex  ">
+            <ul class="flex justify-between items-center gap-2">
                 <li><a href="{% url 'home_page' %}" class="font-semibold text-black hover:text-gray-900">Home</a></li>
                 <li><a href="{% url 'home_page' %}#event-section" class="font-semibold text-black hover:text-gray-900">Events</a></li>
-                
                 <li><a href="{% url 'admin-home' %}" class="font-semibold text-black hover:text-gray-700">Dashboard</a></li>
-
-
             </ul>
-            
         </div>
-        
-        
-        <div class="hidden md:flex gap-1">
+
+        <div class="relative hidden md:flex items-center gap-4">
             {% if user.is_authenticated %}
-            <img src="{% static 'images/user.png' %}" alt="Logo" class="w-16 h-10">
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button
-                  class="bg-gradient-to-r from-[#f4c67d] to-[#ff5e0d] text-black text-center px-4 py-2 rounded-md hover:bg-orange-500 transition duration-300"
-                >
-                  Logout
+            <div class="relative">
+                <button id="user-toggle" class="focus:outline-none">
+                    <img src="{% static 'images/user.png' %}" alt="User" class="w-10 h-10 rounded-full cursor-pointer">
                 </button>
-              </form>
-                 {% else %}
-                 <a
-                 href="{% url 'sign-in' %}"
-                 class="hidden md:block bg-gradient-to-r from-[#f4c67d] to-[#f37738] text-black px-4 py-2 rounded-md hover:bg-orange-700 transition duration-300"
-                 >Sign In</a
-               >
-               <a
-                 href="{% url 'sign-up' %}"
-                 class="hidden md:block bg-gradient-to-r from-[#f4c67d] to-[#ff5e0d] text-black px-4 py-2 rounded-md hover:bg-orange-700 transition duration-300"
-                 >Sign Up</a
-               >
+
+                <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md p-3 z-10">
+                    <p class="uppercase font-semibold">{{ user.username }}</p>
+                    <p class="text-gray-600 text-sm">{{ user.email }}</p>
+                    <hr class="my-2">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="bg-red-500 text-white w-full py-2 rounded-md hover:bg-red-600 transition">Logout</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <a href="{% url 'sign-in' %}" class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition">Sign In</a>
+            <a href="{% url 'sign-up' %}" class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition">Sign Up</a>
             {% endif %}
-            
         </div>
 
         <div class="md:hidden">
@@ -68,46 +57,55 @@
         </div>
     </nav>
 
-  
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md p-4">
         {% if user.is_authenticated %}
-        <div class="my-2">
-            <img src="{% static 'images/user.png' %}" alt="User" class="w-16 h-10">
-        <p class="uppercase font-semibold">{{user}}</p>
-        <p>{{user.email}}</p>
+        <div class="my-2 text-center">
+            <img src="{% static 'images/user.png' %}" alt="User" class="w-12 h-12 mx-auto rounded-full">
+            <p class="uppercase font-semibold">{{ user.username }}</p>
+            <p class="text-gray-600 text-sm">{{ user.email }}</p>
         </div>
         <hr>
         {% endif %}
+
         <ul class="flex flex-col space-y-4 mt-2">
-            {% if user.is_authenticated %}
-                
-            
             <li><a href="{% url 'home_page' %}" class="text-black hover:text-gray-700 font-semibold">Home</a></li>
             <li><a href="{% url 'home_page' %}#event-section" class="text-black hover:text-gray-700 font-semibold">Events</a></li>
             <li><a href="{% url 'admin-home' %}" class="text-black hover:text-gray-700 font-semibold">Dashboard</a></li>
            
+            {% if user.is_authenticated %}
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button
-                  class="bg-gradient-to-r from-[#f4c67d] to-[#ff5e0d] text-black text-center px-4 py-2 rounded-md hover:bg-orange-500 transition duration-300"
-                >
-                  Logout
-                </button>
-              </form>
-            
+                <button class="bg-red-500 text-white w-full py-2 rounded-md hover:bg-red-600 transition">Logout</button>
+            </form>
             {% else %}
             <li>
-                <a href="{% url 'sign-in' %}" class="bg-gradient-to-r from-[#f4c67d] to-[#ff5e0d] text-black text-center px-4 py-2 rounded-md hover:bg-orange-500 transition duration-300">Sign In</a>
+                <a href="{% url 'sign-in' %}" class="bg-orange-500 text-white text-center px-4 py-2 rounded-md hover:bg-orange-600 transition block">Sign In</a>
             </li>
             <li>
-                <a href="{% url 'sign-up' %}" class="bg-gradient-to-r from-[#f4c67d] to-[#ff5e0d] text-black text-center px-4 py-2 rounded-md hover:bg-orange-500 transition duration-300">Sign Up</a>
+                <a href="{% url 'sign-up' %}" class="bg-orange-600 text-white text-center px-4 py-2 rounded-md hover:bg-orange-700 transition block">Sign Up</a>
             </li>
-        {% endif %}
+            {% endif %}
         </ul>
     </div>
 
-
     <script>
+        const userToggle = document.getElementById('user-toggle');
+        const userDropdown = document.getElementById('user-dropdown');
+
+        if (userToggle) {
+            userToggle.addEventListener('click', () => {
+                userDropdown.classList.toggle('hidden');
+            });
+
+        
+            document.addEventListener('click', (event) => {
+                if (!userToggle.contains(event.target) && !userDropdown.contains(event.target)) {
+                    userDropdown.classList.add('hidden');
+                }
+            });
+        }
+
+    
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
 

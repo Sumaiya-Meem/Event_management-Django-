@@ -14,73 +14,26 @@
         <hr class="my-4 border-[#ff5e0d]" />
 
         <ul class="space-y-4 mt-4">
-                 <li>
-                                    <a
-                                      href="{% url 'admin-home' %}"
-                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'admin_home' %}bg-gray-700{% endif %}"
-                                    >
-                                      Admin Dashboard
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a
-                                      href="{% url 'user-list' %}"
-                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'user-list' %}bg-gray-700{% endif %}"
-                                    >
-                                    User List
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a
-                                      href="{% url 'group-list' %}"
-                                      class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'group-list' %}bg-gray-700{% endif %}"
-                                    >
-                                    Group List
-                                    </a>
-                                  </li>
-          <li>
-            <a
-              href="{% url 'create-event' %}"
-              class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_event' %}bg-gray-700{% endif %}"
-            >
-            Event List
-            </a>
-          </li>
+          {% if user.is_authenticated %}
+            {% if user.groups.all.0.name == "Admin" %}
+              <li><a href="{% url 'admin-home' %}" class="menu-item {% if section == 'admin_home' %}active{% endif %}">Admin Dashboard</a></li>
+              <li><a href="{% url 'user-list' %}" class="menu-item {% if section == 'user-list' %}active{% endif %}">User List</a></li>
+              <li><a href="{% url 'group-list' %}" class="menu-item {% if section == 'group-list' %}active{% endif %}">Group List</a></li>
+              <li><a href="{% url 'create-event' %}" class="menu-item {% if section == 'create_event' %}active{% endif %}">Create Event</a></li>
+              <li><a href="{% url 'create-category' %}" class="menu-item {% if section == 'create_category' %}active{% endif %}">Category List</a></li>
+              <li><a href="{% url 'home_page' %}" class="menu-item {% if section == 'home_page' %}active{% endif %}">Home Page</a></li>
+            
+            {% elif user.groups.all.0.name == "Organizer" %}
+              <li><a href="{% url 'admin-home' %}" class="menu-item {% if section == 'admin_home' %}active{% endif %}">Admin Dashboard</a></li>
+              <li><a href="{% url 'create-event' %}" class="menu-item {% if section == 'create_event' %}active{% endif %}">Create Event</a></li>
+              <li><a href="{% url 'create-category' %}" class="menu-item {% if section == 'create_category' %}active{% endif %}">Category List</a></li>
+              <li><a href="{% url 'home_page' %}" class="menu-item {% if section == 'home_page' %}active{% endif %}">Home Page</a></li>
 
-          <li>
-            <a
-              href="{% url 'create-category' %}"
-              class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_category' %}bg-gray-700{% endif %}"
-            >
-              Category List
-            </a>
-          </li>
-          {% comment %} <li>
-                  <a
-                    href=""
-                    class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'create_participant' %}bg-gray-700{% endif %}"
-                  >
-                  Participant List
-                  </a>
-                </li> {% endcomment %}
-               
-                <li>
-                  <a
-                    href="{% url 'participant-dashboard' %}"
-                    class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'participant-dashboard' %}bg-gray-700{% endif %}"
-                  >
-                    RSVP
-                  </a>
-                </li>
+            {% elif user.groups.all.0.name == "User" %}
+              <li><a href="{% url 'participant-dashboard' %}" class="menu-item {% if section == 'participant-dashboard' %}active{% endif %}">RSVP</a></li>
 
-                <li>
-                  <a
-                    href="{% url 'home_page' %}"
-                    class="w-full text-left p-2 border-b border-gray-400 hover:bg-gray-700 rounded block {% if section == 'home_page' %}bg-gray-700{% endif %}"
-                  >
-                    Home Page
-                  </a>
-                </li>
+            {% endif %}
+          {% endif %}
         </ul>
       </div> 
       <div class="col-span-8 overflow-y-auto ">

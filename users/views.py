@@ -5,7 +5,7 @@ from django.contrib.auth import login,logout
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.tokens import default_token_generator
 # Create your views here.
-
+from django.contrib.auth.decorators import login_required
 def sign_up(request):
     form = CustomRegisterForm()
     if request.method=='POST':
@@ -38,7 +38,7 @@ def sign_in(request):
          return redirect('home')  
    return render(request,'registration/login.html',{'form':form})
 
-
+@login_required
 def log_out(request):
    if request.method=='POST':
       logout(request)

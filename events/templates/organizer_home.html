@@ -1,0 +1,175 @@
+{% extends "organizer_dashboard.html" %} 
+{% block content %}
+<div class="p-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-5">
+                    {% comment %} total participant {% endcomment %}
+                    <div class="bg-gray-100 rounded-xl p-6 shadow-sm">
+                      <h3 class="text-sm font-medium text-black font-mono mb-4">
+                        TOTAL PARTICIPANTS
+                      </h3>
+                      <div class="flex justify-between items-start">
+                        <div class="bg-blue-100 p-3 rounded-full">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            class="w-6 h-6 text-blue-600"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            />
+                          </svg>
+                        </div>
+                        <div class="">
+                          <p class="text-3xl font-semibold mb-1">{{ total_participants }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    {% comment %} total event {% endcomment %}
+                    <a href="{% url 'admin-home' %}?event=all">
+                      <div class="bg-gray-100 rounded-xl p-6 shadow-sm">
+                        <h3 class="text-sm font-medium text-black font-mono mb-4">
+                          TOTAL EVENTS
+                        </h3>
+                        <div class="flex justify-between items-start">
+                          <div class="bg-rose-200 p-3 rounded-full">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              class="w-6 h-6 text-rose-600"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                              />
+                            </svg>
+                          </div>
+                          <div>
+                            <p class="text-3xl font-semibold mb-1">{{total_event}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                
+                    {% comment %} upcoming events {% endcomment %}
+                    <a href="{% url 'admin-home' %}?event=upcoming">
+                      <div class="bg-gray-100 rounded-xl p-6 shadow-sm">
+                        <h3 class="text-sm font-medium text-black font-mono mb-4">
+                          UPCOMING EVENTS
+                        </h3>
+                        <div class="flex justify-between items-start">
+                          <div class="bg-fuchsia-300 p-3 rounded-full">
+                              <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              class="w-6 h-6 text-fuchsia-600"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zM12 12v4l3 3"
+                              />
+                            </svg>
+                          </div>
+                          <div>
+                            <p class="text-3xl font-semibold mb-1">{{upcoming_events}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                
+                    {% comment %} past events {% endcomment %}
+                   <a href="{% url 'admin-home' %}?event=past">
+                    <div class="bg-gray-100 rounded-xl p-6 shadow-sm">
+                      <h3 class="text-sm font-medium text-black font-mono mb-4">
+                        PAST EVENTS
+                      </h3>
+                      <div class="flex justify-between items-start">
+                        <div class="bg-orange-200 p-3 rounded-full">
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            class="w-6 h-6 text-orange-600"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zM9 10l2 2 4-4"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <p class="text-3xl font-semibold mb-1">{{past_events}}</p>
+                        </div>
+                      </div>
+                    </div>
+                   </a>
+                  </div>
+                  {% comment %} grid div {% endcomment %}
+                
+                  {% comment %} event listing {% endcomment %}
+                   <div class="mt-8">
+                    <h1 class="text-orange-600 font-bold text-xl mt-8">
+                      {% if event_filter == 'upcoming' %}
+                        Upcoming Events
+                      {% elif event_filter == 'past' %}
+                        Past Events
+                        {% elif event_filter == 'all' %}
+                        ALL Events
+                      {% else %}
+                        Today Events
+                      {% endif %}
+                    </h1>
+                     <hr>
+                
+                     <!-- Event Table -->
+                     <div class="mt-6 overflow-x-auto">
+                       <table class="min-w-full bg-white border border-gray-200">
+                         <thead>
+                           <tr class="bg-gray-100">
+                             <th class="py-3 px-4 border-b text-left">Event Name</th>
+                             <th class="py-3 px-4 border-b text-left">Category</th>
+                             <th class="py-3 px-4 border-b text-left">Date</th>
+                             <th class="py-3 px-4 border-b text-left">Time</th>
+                             <th class="py-3 px-4 border-b text-left">Action</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           {% for event in events %}
+                           <tr class="hover:bg-gray-50">
+                             <td class="py-3 px-4 border-b">{{ event.name }}</td>
+                             <td class="py-3 px-4 border-b">{{ event.category.name }}</td>
+                             <td class="py-3 px-4 border-b">{{ event.date }}</td>
+                             <td class="py-3 px-4 border-b uppercase">{{ event.time }}</td>
+                             <td class="py-3 px-4 border-b">
+                               <a href="{% url 'update-event' event.id %}" class="text-green-700">Edit</a> | 
+                               
+                               <form action="{% url 'delete-event' event.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class=" text-red-500">
+                                  Delete
+                                </button>
+                              </form>
+                             </td>
+                           </tr>
+                           {% endfor %}
+                         </tbody>
+                       </table>
+                     </div>
+                   </div>
+                </div>
+{% endblock content %}

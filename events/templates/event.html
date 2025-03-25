@@ -198,13 +198,13 @@
 
                                   <div class="flex justify-between items-center">
                                     <div class="mt-5">
-                                      <a href="{% url 'event-detail' event.id %}" class="inline-block p-2 rounded-lg mt-2 bg-gradient-to-r from-[#ffac2a] to-[#ff5e0d] text-white font-medium">Details</a>
+                                      <a href="{% url 'event-detail' event.id %}" class="inline-block p-2 rounded-lg  bg-gradient-to-r from-[#ffac2a] to-[#ff5e0d] text-white font-medium">Details</a>
                                     </div>
                                     <div class="mt-5">
                                       <form action="" method="post">
                                         {% csrf_token %}
                                         <a href="{% url 'rsvp-event' event.id %}"
-                                        class="rsvp-btn">RSVP</a>
+                                        class="p-2 rounded-lg font-medium bg-gradient-to-r from-[#ffac2a] to-[#ff5e0d]">RSVP</a>
                                       </form>
                                     </div>
                                   </div>
