@@ -240,7 +240,7 @@ def delete_user(request, user_id):
 @user_passes_test(is_admin,login_url='no-permission') 
 def assign_role(request, user_id):
     user = User.objects.get(id=user_id)
-    form = AssignRoleForm(request.POST or None)
+    form = AssignRoleForm(request.POST)
 
     if request.method == 'POST' and form.is_valid():
         role = form.cleaned_data.get('role')
