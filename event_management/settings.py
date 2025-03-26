@@ -3,7 +3,7 @@
 from pathlib import Path
 from decouple import config
 import dj_database_url
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -161,7 +161,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD =config('EMAIL_HOST_PASSWORD')
 
 
-FRONTEND_URL='http://127.0.0.1:8000'
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://127.0.0.1:8000' if os.getenv('RENDER') is None else 'https://event-management-django-zc3u.onrender.com')
 
 LOGIN_URL = '/users/sign_in/'
 
